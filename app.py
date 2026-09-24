@@ -36,6 +36,11 @@ if st.button("Find College Matches"):
         reader = csv.DictReader(file)
 
         for row in reader:
+            if major != "Undecided":
+                offered_majors = row["majors"].split(";")
+                if major not in offered_majors:
+                    continue
+
             row["sat_25"] = int(row["sat_25"])
             row["sat_75"] = int(row["sat_75"])
             row["admission_rate"] = float(row["admission_rate"])
@@ -58,6 +63,10 @@ if st.button("Find College Matches"):
     st.write(f"Supporting profile score: **{bonus}/6**")
 
     st.subheader("College Matches")
+    if major == "Undecided":
+        st.write("Showing all colleges because no specific major was selected.")
+    else:
+        st.write(f"Showing colleges tagged for **{major}** in the starter dataset.")
 
     likely_count = sum(1 for college in colleges if college["Match"] == "Likely")
     target_count = sum(1 for college in colleges if college["Match"] == "Target")
