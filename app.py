@@ -8,9 +8,7 @@ from matcher import classify_college, profile_bonus
 st.set_page_config(page_title="College Match Finder", page_icon="🎓")
 
 st.title("🎓 College Match Finder")
-st.write(
-    "Compare a student profile with historical U.S. college admissions data."
-)
+st.write("Compare a student profile with historical U.S. college admissions data.")
 
 st.info(
     "This project is an educational matching tool. "
@@ -47,6 +45,7 @@ if st.button("Find College Matches"):
 
             row["Match"] = classify_college(
                 sat_score,
+                gpa,
                 row["sat_25"],
                 row["sat_75"],
                 row["admission_rate"],
@@ -58,42 +57,61 @@ if st.button("Find College Matches"):
     order = {"Likely": 1, "Target": 2, "Reach": 3}
     colleges.sort(key=lambda college: (order[college["Match"]], college["college_name"]))
 
+    recommended = [
+        college for college in colleges if college["Match"] in ("Likely", "Target")
+    ]
+    reach_schools = [college for college in colleges if college["Match"] == "Reach"]
+
+    likely_count = sum(1 for college in recommended if college["Match"] == "Likely")
+    target_count = sum(1 for college in recommended if college["Match"] == "Target")
+
     st.subheader("Your Profile")
     st.write(f"SAT: **{sat_score}** | GPA: **{gpa:.1f}** | Major: **{major}**")
     st.write(f"Supporting profile score: **{bonus}/6**")
 
-    st.subheader("College Matches")
-    if major == "Undecided":
-        st.write("Showing all colleges because no specific major was selected.")
-    else:
-        st.write(f"Showing colleges tagged for **{major}** in the starter dataset.")
-
-    likely_count = sum(1 for college in colleges if college["Match"] == "Likely")
-    target_count = sum(1 for college in colleges if college["Match"] == "Target")
-    reach_count = sum(1 for college in colleges if college["Match"] == "Reach")
-
-    total_col, likely_col, target_col, reach_col = st.columns(4)
-    total_col.metric("Total Colleges", len(colleges))
+    st.subheader("Recommended Matches")
+    total_col, likely_col, target_col = st.columns(3)
+    total_col.metric("Total Matches", len(recommended))
     likely_col.metric("Likely", likely_count)
     target_col.metric("Target", target_count)
-    reach_col.metric("Reach", reach_count)
 
-    table_data = []
+    if recommended:
+        table_data = []
 
-    for college in colleges:
-        table_data.append(
-            {
-                "College": college["college_name"],
-                "State": college["state"],
-                "SAT Range": f"{college['sat_25']}–{college['sat_75']}",
-                "Admission Rate": f"{college['admission_rate']:.0%}",
-                "Match": college["Match"],
-            }
+        for college in recommended:
+            table_data.append(
+                {
+                    "College": college["college_name"],
+                    "State": college["state"],
+                    "SAT Range": f"{college['sat_25']}–{college['sat_75']}",
+                    "Admission Rate": f"{college['admission_rate']:.0%}",
+                    "Match": college["Match"],
+                }
+            )
+
+        st.dataframe(table_data, use_container_width=True, hide_index=True)
+    else:
+        st.warning(
+            "No Likely or Target matches were found for this profile in the starter dataset."
         )
 
-    st.dataframe(table_data, use_container_width=True, hide_index=True)
+    with st.expander(f"Reach Schools ({len(reach_schools)})"):
+        if reach_schools:
+            reach_data = []
+
+            for college in reach_schools:
+                reach_data.append(
+                    {
+                        "College": college["college_name"],
+                        "State": college["state"],
+                        "SAT Range": f"{college['sat_25']}–{college['sat_75']}",
+                        "Admission Rate": f"{college['admission_rate']:.0%}",
+                    }
+                )
+
+            st.dataframe(reach_data, use_container_width=True, hide_index=True)
 
     st.caption(
-        "SAT ranges and admission rates are historical institutional statistics. "
-        "Admissions decisions consider many additional factors."
+        "These are educational profile matches based on simplified rules and "
+        "historical institutional statistics, not admission predictions."
     )
