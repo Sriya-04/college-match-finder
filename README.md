@@ -18,8 +18,9 @@ It is **not** an admissions guarantee or a machine-learning prediction.
 ## How it works
 
 1. The student enters an SAT score, GPA, intended major, and a few profile details.
-2. pandas loads college information from `data/colleges.csv`.
-3. `matcher.py` compares the SAT score with each college's historical SAT range.
+2. Python's built-in `csv` module loads college information from `data/colleges.csv`.
+3. The selected major filters the starter dataset using broad academic-area tags.
+4. `matcher.py` compares the SAT score with each remaining college's historical SAT range.
 4. Very selective colleges are kept in the Reach category as a simple guardrail.
 5. The application displays colleges as **Likely**, **Target**, or **Reach**.
 
@@ -65,7 +66,7 @@ These categories are educational profile matches, not predictions of admission.
 
 ## Data note
 
-The starter CSV contains a small set of U.S. colleges and representative historical admissions fields so the application is easy to understand and demonstrate. Before using the project for real admissions research, refresh and verify each institution's statistics against authoritative sources such as the U.S. Department of Education College Scorecard and each college's published Common Data Set.
+The starter CSV contains a small set of U.S. colleges, representative historical admissions fields, and broad academic-area tags so the application is easy to understand and demonstrate. The major tags are intentionally broad demo categories rather than a complete catalog of every degree program. Before using the project for real admissions research, refresh and verify each institution's statistics against authoritative sources such as the U.S. Department of Education College Scorecard and each college's published Common Data Set.
 
 ## Possible future improvements
 
