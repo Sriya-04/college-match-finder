@@ -8,8 +8,8 @@ This project was designed as a simple freshman-level programming project. The go
 
 - Python basics
 - Functions and conditional logic
-- Reading CSV data with pandas
-- Working with a DataFrame
+- Reading CSV data with Python's built-in `csv` module
+- Working with lists and dictionaries
 - Building a small user interface with Streamlit
 - Separating program logic from the user interface
 
@@ -20,9 +20,9 @@ It is **not** an admissions guarantee or a machine-learning prediction.
 1. The student enters an SAT score, GPA, intended major, and a few profile details.
 2. Python's built-in `csv` module loads college information from `data/colleges.csv`.
 3. The selected major filters the starter dataset using broad academic-area tags.
-4. `matcher.py` compares the SAT score with each remaining college's historical SAT range.
-4. Very selective colleges are kept in the Reach category as a simple guardrail.
-5. The application displays colleges as **Likely**, **Target**, or **Reach**.
+4. `matcher.py` compares GPA and SAT with simple transparent thresholds.
+5. Very selective colleges are kept in the Reach category as a simple guardrail.
+6. The application shows **Likely** and **Target** schools as recommended matches and keeps **Reach** schools in a separate expandable section.
 
 The extracurricular/profile score is displayed as supporting context. It does not pretend to represent an official admissions formula.
 
@@ -57,10 +57,11 @@ streamlit run app.py
 
 The first version intentionally uses transparent rules rather than machine learning:
 
+- GPA below 2.0 → Reach
 - Admission rate below 15% → Reach
-- SAT at or above the college's 75th percentile → Likely
-- SAT within the 25th–75th percentile range → Target
-- SAT below the 25th percentile → Reach
+- SAT at or above the college's 75th percentile and GPA at least 3.5 → Likely
+- SAT at or above the college's 25th percentile and GPA at least 3.0 → Target
+- Otherwise → Reach
 
 These categories are educational profile matches, not predictions of admission.
 
