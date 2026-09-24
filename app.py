@@ -15,19 +15,25 @@ st.info(
     "It does not predict or guarantee admission."
 )
 
-sat_score = st.slider("SAT score", 400, 1600, 1200, 10)
-gpa = st.slider("GPA (4.0 scale)", 0.0, 4.0, 3.5, 0.1)
-major = st.selectbox(
-    "Intended major",
-    ["Computer Science", "Engineering", "Business", "Biology", "Undecided"],
-)
-extracurriculars = st.selectbox(
-    "Extracurricular involvement", ["Low", "Moderate", "Strong"]
-)
-leadership = st.checkbox("Leadership experience")
-volunteering = st.checkbox("Volunteer / community service")
+with st.sidebar:
+    st.header("Student Profile")
+    st.write("Enter your academic and activity details.")
 
-if st.button("Find College Matches"):
+    sat_score = st.slider("SAT score", 400, 1600, 1200, 10)
+    gpa = st.slider("GPA (4.0 scale)", 0.0, 4.0, 3.5, 0.1)
+    major = st.selectbox(
+        "Intended major",
+        ["Computer Science", "Engineering", "Business", "Biology", "Undecided"],
+    )
+    extracurriculars = st.selectbox(
+        "Extracurricular involvement", ["Low", "Moderate", "Strong"]
+    )
+    leadership = st.checkbox("Leadership experience")
+    volunteering = st.checkbox("Volunteer / community service")
+
+    find_matches = st.button("Find College Matches", use_container_width=True)
+
+if find_matches:
     colleges = []
 
     with open("data/colleges.csv", newline="", encoding="utf-8") as file:
