@@ -22,6 +22,10 @@ st.markdown(
             max-width: 1400px;
         }
 
+        [data-testid="stSidebar"] {
+            background-color: #EEF4FA;
+        }
+
         [data-testid="stSidebar"] .block-container {
             padding-top: 1.4rem;
         }
