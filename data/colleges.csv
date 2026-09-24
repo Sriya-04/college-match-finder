@@ -1,0 +1,41 @@
+college_name,city,state,sat_25,sat_75,admission_rate
+Princeton University,Princeton,NJ,1500,1580,0.05
+Massachusetts Institute of Technology,Cambridge,MA,1520,1580,0.04
+Harvard University,Cambridge,MA,1490,1580,0.03
+Stanford University,Stanford,CA,1500,1570,0.04
+University of Pennsylvania,Philadelphia,PA,1500,1570,0.06
+Cornell University,Ithaca,NY,1470,1550,0.08
+Carnegie Mellon University,Pittsburgh,PA,1500,1570,0.11
+New York University,New York,NY,1470,1570,0.09
+Boston University,Boston,MA,1410,1520,0.11
+Northeastern University,Boston,MA,1450,1530,0.06
+University of Michigan,Ann Arbor,MI,1350,1530,0.18
+University of Virginia,Charlottesville,VA,1400,1540,0.17
+University of North Carolina at Chapel Hill,Chapel Hill,NC,1370,1530,0.19
+Georgia Institute of Technology,Atlanta,GA,1370,1530,0.16
+University of Florida,Gainesville,FL,1320,1470,0.24
+University of Texas at Austin,Austin,TX,1240,1470,0.29
+Rutgers University-New Brunswick,New Brunswick,NJ,1270,1480,0.66
+Pennsylvania State University-University Park,University Park,PA,1210,1390,0.55
+University of Maryland-College Park,College Park,MD,1370,1520,0.44
+Ohio State University-Columbus,Columbus,OH,1310,1480,0.53
+Purdue University-West Lafayette,West Lafayette,IN,1210,1470,0.50
+University of Pittsburgh-Pittsburgh Campus,Pittsburgh,PA,1280,1470,0.49
+University of Connecticut,Storrs,CT,1220,1440,0.55
+Temple University,Philadelphia,PA,1120,1370,0.80
+Drexel University,Philadelphia,PA,1230,1430,0.78
+University of Delaware,Newark,DE,1170,1350,0.72
+Rowan University,Glassboro,NJ,1100,1320,0.77
+Montclair State University,Montclair,NJ,1010,1210,0.91
+New Jersey Institute of Technology,Newark,NJ,1190,1450,0.66
+Stevens Institute of Technology,Hoboken,NJ,1380,1510,0.46
+Seton Hall University,South Orange,NJ,1150,1330,0.75
+University of Massachusetts Amherst,Amherst,MA,1250,1460,0.64
+Virginia Tech,Blacksburg,VA,1240,1450,0.57
+Michigan State University,East Lansing,MI,1110,1320,0.84
+Indiana University-Bloomington,Bloomington,IN,1180,1400,0.82
+University of Iowa,Iowa City,IA,1130,1350,0.86
+Arizona State University Campus Immersion,Tempe,AZ,1100,1320,0.90
+University of Arizona,Tucson,AZ,1140,1370,0.87
+University of Oregon,Eugene,OR,1130,1360,0.86
+University of Colorado Boulder,Boulder,CO,1160,1390,0.81
