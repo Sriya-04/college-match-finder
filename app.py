@@ -1,4 +1,5 @@
-import pandas as pd
+import csv
+
 import streamlit as st
 
 from matcher import classify_college, profile_bonus
@@ -29,23 +30,28 @@ leadership = st.checkbox("Leadership experience")
 volunteering = st.checkbox("Volunteer / community service")
 
 if st.button("Find College Matches"):
-    colleges = pd.read_csv("data/colleges.csv")
+    colleges = []
+
+    with open("data/colleges.csv", newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            row["sat_25"] = int(row["sat_25"])
+            row["sat_75"] = int(row["sat_75"])
+            row["admission_rate"] = float(row["admission_rate"])
+
+            row["Match"] = classify_college(
+                sat_score,
+                row["sat_25"],
+                row["sat_75"],
+                row["admission_rate"],
+            )
+            colleges.append(row)
 
     bonus = profile_bonus(gpa, extracurriculars, leadership, volunteering)
 
-    colleges["Match"] = colleges.apply(
-        lambda row: classify_college(
-            sat_score,
-            row["sat_25"],
-            row["sat_75"],
-            row["admission_rate"],
-        ),
-        axis=1,
-    )
-
     order = {"Likely": 1, "Target": 2, "Reach": 3}
-    colleges["sort_order"] = colleges["Match"].map(order)
-    colleges = colleges.sort_values(["sort_order", "college_name"])
+    colleges.sort(key=lambda college: (order[college["Match"]], college["college_name"]))
 
     st.subheader("Your Profile")
     st.write(f"SAT: **{sat_score}** | GPA: **{gpa:.1f}** | Major: **{major}**")
@@ -53,7 +59,7 @@ if st.button("Find College Matches"):
 
     st.subheader("College Matches")
 
-    for _, college in colleges.iterrows():
+    for college in colleges:
         st.markdown(f"### {college['college_name']} — {college['Match']}")
         st.write(
             f"{college['city']}, {college['state']} | "
