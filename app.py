@@ -59,13 +59,30 @@ if st.button("Find College Matches"):
 
     st.subheader("College Matches")
 
+    likely_count = sum(1 for college in colleges if college["Match"] == "Likely")
+    target_count = sum(1 for college in colleges if college["Match"] == "Target")
+    reach_count = sum(1 for college in colleges if college["Match"] == "Reach")
+
+    total_col, likely_col, target_col, reach_col = st.columns(4)
+    total_col.metric("Total Colleges", len(colleges))
+    likely_col.metric("Likely", likely_count)
+    target_col.metric("Target", target_count)
+    reach_col.metric("Reach", reach_count)
+
+    table_data = []
+
     for college in colleges:
-        st.markdown(f"### {college['college_name']} — {college['Match']}")
-        st.write(
-            f"{college['city']}, {college['state']} | "
-            f"Historical SAT range: {college['sat_25']}–{college['sat_75']} | "
-            f"Admission rate: {college['admission_rate']:.0%}"
+        table_data.append(
+            {
+                "College": college["college_name"],
+                "State": college["state"],
+                "SAT Range": f"{college['sat_25']}–{college['sat_75']}",
+                "Admission Rate": f"{college['admission_rate']:.0%}",
+                "Match": college["Match"],
+            }
         )
+
+    st.dataframe(table_data, use_container_width=True, hide_index=True)
 
     st.caption(
         "SAT ranges and admission rates are historical institutional statistics. "
