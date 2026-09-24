@@ -1,12 +1,18 @@
-def classify_college(student_sat, sat_25, sat_75, admission_rate):
+def classify_college(student_sat, gpa, sat_25, sat_75, admission_rate):
     """Return a simple college match category based on historical data."""
+    # GPA guardrail: a very low GPA should not be presented as a realistic match.
+    if gpa < 2.0:
+        return "Reach"
+
+    # Highly selective colleges remain reaches in this simple model.
     if admission_rate < 0.15:
         return "Reach"
 
-    if student_sat >= sat_75:
+    # GPA and SAT both participate in the match.
+    if student_sat >= sat_75 and gpa >= 3.5:
         return "Likely"
 
-    if student_sat >= sat_25:
+    if student_sat >= sat_25 and gpa >= 3.0:
         return "Target"
 
     return "Reach"
