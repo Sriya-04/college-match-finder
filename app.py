@@ -95,21 +95,22 @@ if st.button("Find College Matches"):
             "No Likely or Target matches were found for this profile in the starter dataset."
         )
 
-    with st.expander(f"Reach Schools ({len(reach_schools)})"):
-        if reach_schools:
-            reach_data = []
+    if recommended:
+        with st.expander(f"Reach Schools ({len(reach_schools)})"):
+            if reach_schools:
+                reach_data = []
 
-            for college in reach_schools:
-                reach_data.append(
-                    {
-                        "College": college["college_name"],
-                        "State": college["state"],
-                        "SAT Range": f"{college['sat_25']}–{college['sat_75']}",
-                        "Admission Rate": f"{college['admission_rate']:.0%}",
-                    }
-                )
+                for college in reach_schools:
+                    reach_data.append(
+                        {
+                            "College": college["college_name"],
+                            "State": college["state"],
+                            "SAT Range": f"{college['sat_25']}–{college['sat_75']}",
+                            "Admission Rate": f"{college['admission_rate']:.0%}",
+                        }
+                    )
 
-            st.dataframe(reach_data, use_container_width=True, hide_index=True)
+                st.dataframe(reach_data, use_container_width=True, hide_index=True)
 
     st.caption(
         "These are educational profile matches based on simplified rules and "
