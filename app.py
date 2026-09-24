@@ -5,7 +5,34 @@ import streamlit as st
 from matcher import classify_college, profile_bonus
 
 
-st.set_page_config(page_title="College Match Finder", page_icon="🎓")
+st.set_page_config(
+    page_title="College Match Finder",
+    page_icon="🎓",
+    layout="wide",
+)
+
+# Keep the page compact while leaving Streamlit controls native and easy to understand.
+st.markdown(
+    """
+    <style>
+        .block-container {
+            padding-top: 1.4rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            max-width: 1400px;
+        }
+
+        [data-testid="stSidebar"] .block-container {
+            padding-top: 1.4rem;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.title("🎓 College Match Finder")
 st.write("Compare a student profile with historical U.S. college admissions data.")
