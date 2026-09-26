@@ -1,0 +1,84 @@
+# College Match Finder 🎓
+
+A beginner-friendly Python and Streamlit project that compares a student's profile with historical U.S. college admissions statistics.
+
+## Purpose
+
+This project was designed as a simple freshman-level programming project. The goal is to demonstrate:
+
+- Python basics
+- Functions and conditional logic
+- Reading CSV data with Python's built-in `csv` module
+- Working with lists and dictionaries
+- Building a small user interface with Streamlit
+- Separating program logic from the user interface
+
+It is **not** an admissions guarantee or a machine-learning prediction.
+
+## How it works
+
+1. The student enters an SAT score, GPA, intended major, and a few profile details.
+2. Python's built-in `csv` module loads college information from `data/colleges.csv`.
+3. The selected major filters the starter dataset using broad academic-area tags.
+4. `matcher.py` compares GPA and SAT with simple transparent thresholds.
+5. Very selective colleges are kept in the Reach category as a simple guardrail.
+6. The application shows **Likely** and **Target** schools as recommended matches and keeps **Reach** schools in a separate expandable section.
+
+The extracurricular/profile score is displayed as supporting context. It does not pretend to represent an official admissions formula.
+
+## Project structure
+
+```text
+college-match/
+├── app.py
+├── matcher.py
+├── data/
+│   └── colleges.csv
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+## Run locally
+
+```bash
+python -m venv .venv
+```
+
+On Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+## Matching rules
+
+The first version intentionally uses transparent rules rather than machine learning:
+
+- GPA below 2.0 → Reach
+- Admission rate below 15% → Reach
+- SAT at or above the college's 75th percentile and GPA at least 3.5 → Likely
+- SAT at or above the college's 25th percentile and GPA at least 3.0 → Target
+- Otherwise → Reach
+
+These categories are educational profile matches, not predictions of admission.
+
+## Data note
+
+The starter CSV contains a small set of U.S. colleges, representative historical admissions fields, and broad academic-area tags so the application is easy to understand and demonstrate. The major tags are intentionally broad demo categories rather than a complete catalog of every degree program. Before using the project for real admissions research, refresh and verify each institution's statistics against authoritative sources such as the U.S. Department of Education College Scorecard and each college's published Common Data Set.
+
+## Possible future improvements
+
+- Refresh the dataset from authoritative sources
+- Add ACT support
+- Add state and region filters
+- Add college cost information
+- Add more intended majors
+- Explain each match in more detail
+- Explore machine learning only if reliable applicant-level training data becomes available
+
+## Disclaimer
+
+College admissions decisions depend on many factors including academic record, course rigor, essays, recommendations, activities, institutional priorities, residency, intended program, and other considerations. This application is for educational purposes only.
